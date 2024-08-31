@@ -1,0 +1,18 @@
+{
+  "name": "redistasks",
+  "version": "1.0.0",
+  "description": "Simple Task Manager using Redis",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mohamed Dawoud",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "body-parser": "1.20.2",
+    "ejs": "3.1.10",
+    "morgan": "1.10.0",
+    "redis": "4.7.0"
+  }
+}
