@@ -54,6 +54,23 @@ app.post("/task/add", async (req, res) => {
   }
 });
 
+app.post("/task/delete", async (req, res) => {
+  const tasksToDel = req.body.tasks;
+
+  try {
+    const tasks = await client.lRange("tasks", 0, -1);
+    for (let task of tasks) {
+      if (tasksToDel.includes(task)) {
+        await client.lRem("tasks", 0, task);
+      }
+    }
+    res.redirect("/");
+  } catch (err) {
+    if (err) console.log(`Error removing task: ${err}`);
+    res.status(500).send("Server Error");
+  }
+});
+
 const PORT = 6380;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
