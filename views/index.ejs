@@ -43,15 +43,6 @@
         font-weight: normal;
       }
 
-      h3 {
-        margin-top: 30px;
-        margin-bottom: 20px;
-      }
-
-      .form-control {
-        margin-bottom: 15px;
-      }
-
       .task-list {
         margin-top: 20px;
       }
@@ -69,6 +60,7 @@
         border-radius: 5px;
         display: flex;
         align-items: center;
+        color: #26355d;
       }
 
       .task-list li input[type="checkbox"] {
@@ -78,10 +70,6 @@
       .del:checked + span {
         color: red;
         text-decoration: line-through;
-      }
-
-      .btn-primary {
-        width: 100%;
       }
 
       input[type="text"] {
@@ -102,28 +90,27 @@
       strong {
         color: #ff8f00; /* Deep Orange, matching h1 */
         font-weight: bold;
-        background-color: rgba(255, 143, 0, 0.1); /* Light background for emphasis */
+        background-color: rgba(
+          255,
+          143,
+          0,
+          0.1
+        ); /* Light background for emphasis */
         padding: 2px 4px;
         border-radius: 3px;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <h1 class="text-center mb-4">Simple Task Manager Using Redis</h1>
+    <div>
+      <h1>Simple Task Manager Using Redis</h1>
 
-      <form method="post" action="/task/add" class="mb-4">
-        <div class="form-group">
+      <form method="post" action="/task/add">
+        <div>
           <label for="task">Add Task</label> <br />
-          <input
-            type="text"
-            name="task"
-            class="form-control"
-            placeholder="Add Task"
-            required
-          />
+          <input type="text" name="task" placeholder="Add Task" required />
         </div>
-        <input type="submit" value="Submit" class="btn button" />
+        <input type="submit" value="Submit" class="button" />
       </form>
 
       <h2>Task List</h2>
@@ -143,70 +130,62 @@
           </li>
           <% }) %>
         </ul>
-        <input type="submit" value="Remove" class="btn btn-danger button" />
+        <input type="submit" value="Remove" class="button" />
       </form>
 
       <h2>Business Call Details</h2>
-      <div class="card mb-4">
-        <div class="card-body">
-          <p><strong>Name:</strong> <%= call.name %></p>
-          <p><strong>Company:</strong> <%= call.company %></p>
-          <p><strong>Phone:</strong> <%= call.phone %></p>
-          <p><strong>Time:</strong> <%= call.time %></p>
-        </div>
-      </div>
+      <p><strong>Name:</strong> <%= call.name %></p>
+      <p><strong>Company:</strong> <%= call.company %></p>
+      <p><strong>Phone:</strong> <%= call.phone %></p>
+      <p><strong>Time:</strong> <%= call.time %></p>
 
       <h2>Edit Next Call</h2>
       <form method="post" action="/call/add">
-        <div class="form-group">
+        <div>
           <label for="cname">Contact Name</label> <br />
           <input
             type="text"
             name="name"
             id="cname"
-            class="form-control"
             placeholder="Task Name"
             required
           />
         </div>
 
-        <div class="form-group">
+        <div>
           <label for="compName">Company</label> <br />
           <input
             type="text"
             name="company"
             id="compName"
-            class="form-control"
             placeholder="Company"
             required
           />
         </div>
 
-        <div class="form-group">
+        <div>
           <label for="phone">Phone</label> <br />
           <input
             type="text"
             name="phone"
             id="phone"
-            class="form-control"
             placeholder="Phone"
             required
           />
         </div>
 
-        <div class="form-group">
+        <div>
           <label for="time">Day & Time</label> <br />
           <input
             type="text"
             name="time"
             id="time"
-            class="form-control"
             placeholder="Time"
             required
           />
         </div>
 
-        <input type="submit" value="Submit" class="btn btn-success button" />
+        <input type="submit" value="Submit" class="button" />
       </form>
     </div>
   </body>
