@@ -13,19 +13,19 @@
         font-family: "Ubuntu", sans-serif;
         padding: 20px;
         background-color: #26355d;
-        color: #e0e0e0; /* Soft beige */
+        color: #e0e0e0;
       }
 
       h1 {
-        color: #ff8f00; /* Deep Orange */
+        color: #ff8f00;
       }
 
       h2 {
-        color: #ffdb00; /* Yellow */
+        color: #ffdb00;
       }
 
       .button {
-        background-color: #11c0c0; /* Teal */
+        background-color: #11c0c0;
         color: white;
         border: none;
         padding: 10px 20px;
@@ -35,16 +35,15 @@
       }
 
       .button:hover {
-        background-color: #e65a30; /* Darker Burnt Orange for hover */
+        background-color: #e65a30;
       }
 
-      h1,
-      h2 {
-        font-weight: normal;
-      }
-
-      .task-list {
-        margin-top: 20px;
+      .form-container {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        margin-bottom: 20px;
       }
 
       .task-list ul {
@@ -82,43 +81,42 @@
       }
 
       input[type="text"]:focus {
-        border-color: #5e3fbe; /* Deep Purple */
+        border-color: #5e3fbe;
         outline: none;
         box-shadow: 0 0 5px rgba(94, 63, 190, 0.5);
       }
 
-      strong {
-        color: #ff8f00; /* Deep Orange, matching h1 */
-        font-weight: bold;
-        background-color: rgba(
-          255,
-          143,
-          0,
-          0.1
-        ); /* Light background for emphasis */
-        padding: 2px 4px;
-        border-radius: 3px;
+      .label {
+        color: #26355d;
       }
     </style>
   </head>
   <body>
-    <div>
-      <h1>Simple Task Manager Using Redis</h1>
+    <h1>Simple Task Manager Using Redis</h1>
 
+    <div class="form-container">
       <form method="post" action="/task/add">
         <div>
-          <label for="task">Add Task</label> <br />
-          <input type="text" name="task" placeholder="Add Task" required />
+          <label for="atask" class="label">Add Task</label><br />
+          <input
+            type="text"
+            name="task"
+            id="atask"
+            placeholder="Add Task"
+            required
+          />
         </div>
         <input type="submit" value="Submit" class="button" />
       </form>
+    </div>
 
-      <h2>Task List</h2>
+    <h2>Task List</h2>
+    <div class="form-container">
       <form method="post" action="/task/delete" class="task-list">
         <ul>
           <% tasks.forEach(task => { %>
           <li>
-            <label for="">
+            <label>
               <input
                 type="checkbox"
                 name="tasks"
@@ -132,17 +130,21 @@
         </ul>
         <input type="submit" value="Remove" class="button" />
       </form>
+    </div>
 
-      <h2>Business Call Details</h2>
-      <p><strong>Name:</strong> <%= call.name %></p>
-      <p><strong>Company:</strong> <%= call.company %></p>
-      <p><strong>Phone:</strong> <%= call.phone %></p>
-      <p><strong>Time:</strong> <%= call.time %></p>
+    <h2>Business Call Details</h2>
+    <div class="form-container">
+      <p class="label"><strong>Name:</strong> <%= call.name %></p>
+      <p class="label"><strong>Company:</strong> <%= call.company %></p>
+      <p class="label"><strong>Phone:</strong> <%= call.phone %></p>
+      <p class="label"><strong>Time:</strong> <%= call.time %></p>
+    </div>
 
-      <h2>Edit Next Call</h2>
+    <h2>Edit Next Call</h2>
+    <div class="form-container">
       <form method="post" action="/call/add">
         <div>
-          <label for="cname">Contact Name</label> <br />
+          <label for="cname" class="label">Contact Name</label><br />
           <input
             type="text"
             name="name"
@@ -153,7 +155,7 @@
         </div>
 
         <div>
-          <label for="compName">Company</label> <br />
+          <label for="compName" class="label">Company</label><br />
           <input
             type="text"
             name="company"
@@ -164,7 +166,7 @@
         </div>
 
         <div>
-          <label for="phone">Phone</label> <br />
+          <label for="phone" class="label">Phone</label><br />
           <input
             type="text"
             name="phone"
@@ -175,7 +177,7 @@
         </div>
 
         <div>
-          <label for="time">Day & Time</label> <br />
+          <label for="time" class="label">Day & Time</label><br />
           <input
             type="text"
             name="time"
