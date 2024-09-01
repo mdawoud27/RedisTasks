@@ -2,6 +2,8 @@
 
 _A simple web application that allows users to manage tasks with the help of **Redis** for data storage. This project provides basic functionality to add, display, and remove tasks._
 
+**Demo Video** (_soon_)
+
 ## Features
 
 - **Add Tasks:** Users can add new tasks to their task list.
@@ -57,5 +59,3 @@ _The application will be available at_ `http://localhost:6380`.
 
 3. **Remove Tasks**:
    - Select the tasks you want to remove and click "Remove".
-
-**Demo Video** (_soon_)
