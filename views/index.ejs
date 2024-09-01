@@ -31,5 +31,35 @@
     </li>
     <% }) %>
   </ul>
-  <input type="submit" value="Remove">
+  <input type="submit" value="Remove" />
+</form>
+
+<h3>Business Call</h3>
+Name: <%= call.name %> <br />
+Company: <%= call.company %> <br />
+Phone: <%= call.phone %> <br />
+Time: <%= call.time %> <br />
+
+<h3>Edit Next Call</h3>
+<form method="post" action="/call/add">
+  <label for="cname">Contact Name</label> <br />
+  <input type="text" name="name" id="cname" placeholder="Task Name" />
+
+  <br /><br />
+
+  <label for="compName">Company</label> <br />
+  <input type="text" name="company" id="compName" placeholder="Company" />
+
+  <br /><br />
+
+  <label for="phone">Phone</label> <br />
+  <input type="text" name="phone" id="phone" placeholder="Phone" />
+
+  <br /><br />
+
+  <label for="time">Day & Time</label> <br />
+  <input type="text" name="time" id="time" placeholder="Time" />
+
+  <br /><br />
+  <input type="submit" value="Submit" />
 </form>

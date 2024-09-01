@@ -32,9 +32,11 @@ app.get("/", async (req, res) => {
   const title = "Task List";
   try {
     const tasks = await client.lRange("tasks", 0, -1);
+    const call = await client.hGetAll("call");
     res.render("index", {
       title: title,
       tasks: tasks,
+      call: call,
     });
   } catch (err) {
     console.error("Error retrieving task: ", err);
@@ -67,6 +69,28 @@ app.post("/task/delete", async (req, res) => {
     res.redirect("/");
   } catch (err) {
     if (err) console.log(`Error removing task: ${err}`);
+    res.status(500).send("Server Error");
+  }
+});
+
+app.post("/call/add", async (req, res) => {
+  const newCall = {
+    name: req.body.name,
+    company: req.body.company,
+    phone: req.body.phone,
+    time: req.body.time,
+  };
+
+  try {
+    await client.hSet("call", {
+      name: newCall.name,
+      company: newCall.company,
+      phone: newCall.phone,
+      time: newCall.time,
+    });
+    res.redirect("/");
+  } catch (err) {
+    if (err) console.log(`Error calling task: ${err}`);
     res.status(500).send("Server Error");
   }
 });
