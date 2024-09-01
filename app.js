@@ -42,6 +42,18 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.post("/task/add", async (req, res) => {
+  const task = req.body.task;
+  try {
+    await client.rPush("tasks", task);
+    console.log("Task Added...");
+    res.redirect("/");
+  } catch (err) {
+    if (err) console.log(`Error adding task: ${err}`);
+    res.status(500).send("Server Error");
+  }
+});
+
 const PORT = 6380;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
