@@ -1,65 +1,213 @@
-<style>
-  .del:checked + span {
-    color: red;
-  }
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Task Manager Using Redis</title>
+    <style>
+      body {
+        font-family: "Ubuntu", sans-serif;
+        padding: 20px;
+        background-color: #26355d;
+        color: #e0e0e0; /* Soft beige */
+      }
 
-  ul {
-    list-style: none;
-  }
-</style>
+      h1 {
+        color: #ff8f00; /* Deep Orange */
+      }
 
-<form method="post" action="/task/add">
-  <label for="task">Add Tasks</label>
-  <input type="text" name="task" placeholder="Add Task" />
-  <input type="submit" value="Submit" />
-</form>
+      h2 {
+        color: #ffdb00; /* Yellow */
+      }
 
-<%= title %>
+      .button {
+        background-color: #11c0c0; /* Teal */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
 
-<form method="post" action="/task/delete">
-  <ul>
-    <% tasks.forEach(task => { %>
-    <li>
-      <label for="">
-        <input
-          type="checkbox"
-          name="tasks"
-          class="del"
-          value="<%= task %>"
-        /><span><%= task %></span>
-      </label>
-    </li>
-    <% }) %>
-  </ul>
-  <input type="submit" value="Remove" />
-</form>
+      .button:hover {
+        background-color: #e65a30; /* Darker Burnt Orange for hover */
+      }
 
-<h3>Business Call</h3>
-Name: <%= call.name %> <br />
-Company: <%= call.company %> <br />
-Phone: <%= call.phone %> <br />
-Time: <%= call.time %> <br />
+      h1,
+      h2 {
+        font-weight: normal;
+      }
 
-<h3>Edit Next Call</h3>
-<form method="post" action="/call/add">
-  <label for="cname">Contact Name</label> <br />
-  <input type="text" name="name" id="cname" placeholder="Task Name" />
+      h3 {
+        margin-top: 30px;
+        margin-bottom: 20px;
+      }
 
-  <br /><br />
+      .form-control {
+        margin-bottom: 15px;
+      }
 
-  <label for="compName">Company</label> <br />
-  <input type="text" name="company" id="compName" placeholder="Company" />
+      .task-list {
+        margin-top: 20px;
+      }
 
-  <br /><br />
+      .task-list ul {
+        list-style: none;
+        padding-left: 0;
+      }
 
-  <label for="phone">Phone</label> <br />
-  <input type="text" name="phone" id="phone" placeholder="Phone" />
+      .task-list li {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+      }
 
-  <br /><br />
+      .task-list li input[type="checkbox"] {
+        margin-right: 10px;
+      }
 
-  <label for="time">Day & Time</label> <br />
-  <input type="text" name="time" id="time" placeholder="Time" />
+      .del:checked + span {
+        color: red;
+        text-decoration: line-through;
+      }
 
-  <br /><br />
-  <input type="submit" value="Submit" />
-</form>
+      .btn-primary {
+        width: 100%;
+      }
+
+      input[type="text"] {
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+
+      input[type="text"]:focus {
+        border-color: #5e3fbe; /* Deep Purple */
+        outline: none;
+        box-shadow: 0 0 5px rgba(94, 63, 190, 0.5);
+      }
+
+      strong {
+        color: #ff8f00; /* Deep Orange, matching h1 */
+        font-weight: bold;
+        background-color: rgba(255, 143, 0, 0.1); /* Light background for emphasis */
+        padding: 2px 4px;
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center mb-4">Simple Task Manager Using Redis</h1>
+
+      <form method="post" action="/task/add" class="mb-4">
+        <div class="form-group">
+          <label for="task">Add Task</label> <br />
+          <input
+            type="text"
+            name="task"
+            class="form-control"
+            placeholder="Add Task"
+            required
+          />
+        </div>
+        <input type="submit" value="Submit" class="btn button" />
+      </form>
+
+      <h2>Task List</h2>
+      <form method="post" action="/task/delete" class="task-list">
+        <ul>
+          <% tasks.forEach(task => { %>
+          <li>
+            <label for="">
+              <input
+                type="checkbox"
+                name="tasks"
+                class="del"
+                value="<%= task %>"
+              />
+              <span><%= task %></span>
+            </label>
+          </li>
+          <% }) %>
+        </ul>
+        <input type="submit" value="Remove" class="btn btn-danger button" />
+      </form>
+
+      <h2>Business Call Details</h2>
+      <div class="card mb-4">
+        <div class="card-body">
+          <p><strong>Name:</strong> <%= call.name %></p>
+          <p><strong>Company:</strong> <%= call.company %></p>
+          <p><strong>Phone:</strong> <%= call.phone %></p>
+          <p><strong>Time:</strong> <%= call.time %></p>
+        </div>
+      </div>
+
+      <h2>Edit Next Call</h2>
+      <form method="post" action="/call/add">
+        <div class="form-group">
+          <label for="cname">Contact Name</label> <br />
+          <input
+            type="text"
+            name="name"
+            id="cname"
+            class="form-control"
+            placeholder="Task Name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="compName">Company</label> <br />
+          <input
+            type="text"
+            name="company"
+            id="compName"
+            class="form-control"
+            placeholder="Company"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone</label> <br />
+          <input
+            type="text"
+            name="phone"
+            id="phone"
+            class="form-control"
+            placeholder="Phone"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="time">Day & Time</label> <br />
+          <input
+            type="text"
+            name="time"
+            id="time"
+            class="form-control"
+            placeholder="Time"
+            required
+          />
+        </div>
+
+        <input type="submit" value="Submit" class="btn btn-success button" />
+      </form>
+    </div>
+  </body>
+</html>
