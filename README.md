@@ -4,10 +4,7 @@ _A simple web application that allows users to manage tasks with the help of **R
 
 **Demo Video**
 
-<video controls>
-  <source src="./demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[demo](https://github.com/user-attachments/assets/54f8d63f-81b5-4958-98fc-1d3021b54500)
 
 ## Features
 
