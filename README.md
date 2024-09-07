@@ -2,7 +2,12 @@
 
 _A simple web application that allows users to manage tasks with the help of **Redis** for data storage. This project provides basic functionality to add, display, and remove tasks._
 
-**Demo Video** (_soon_)
+**Demo Video**
+
+<video width="320" height="240" controls>
+  <source src="./demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ## Features
 
